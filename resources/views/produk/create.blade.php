@@ -7,11 +7,9 @@
         <span class="fw-bold fs-3 text-dark d-inline"> &gt; </span>
         <h2 class="fw-bold fs-3 text-dark d-inline">Tambah Produk</h2>
     </div>
-
-    <!-- Form Input Produk -->
     <form action="{{ route('produk.create') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <!-- Baris Pertama: Kategori dan Nama Barang -->
+
         <div class="row mb-3">
             <div class="col-md-4">
                 <label for="itemCategory" class="form-label">Kategori</label>
@@ -38,8 +36,6 @@
                 @enderror
             </div>
         </div>
-
-        <!-- Baris Kedua: Harga dan Stok -->
         <div class="row mb-3">
             <div class="col-md-4">
                 <label for="buyPrice" class="form-label">Harga Beli</label>
@@ -95,7 +91,6 @@
             </div>
         </div>
 
-        <!-- Input Gambar -->
         <div class="mb-3">
             <label for="itemImage" class="form-label">Upload Image</label>
             <input

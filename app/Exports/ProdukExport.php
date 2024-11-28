@@ -23,20 +23,17 @@ class ProdukExport implements FromCollection, WithHeadings
     {
         $query = Produk::query();
 
-        // Penerapan pencarian
         if (!empty($this->filters['search'])) {
             $query->where('name', 'like', '%' . $this->filters['search'] . '%');
         }
 
-        // Penerapan filter kategori
         if (!empty($this->filters['category_id'])) {
             $query->where('category_id', $this->filters['category_id']);
         }
 
-        // Ambil data produk dan tambahkan nomor urut
         return $query->get()->map(function ($produk, $index) {
             return [
-                $index + 1, // Menambahkan nomor urut
+                $index + 1,
                 $produk->name,
                 $produk->category->name ?? 'Tidak Ada',
                 $produk->price_buy,

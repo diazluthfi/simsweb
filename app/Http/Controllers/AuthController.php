@@ -6,9 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Produk;
 use App\Models\Category;
-use App\Models\User;
-use App\Exports\ProdukExport;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
@@ -18,12 +15,9 @@ class AuthController extends Controller
         return view('login');
     }
 
-
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-
-        // Menggunakan prepared statement untuk validasi login
         $user = DB::table('users')
             ->where('email', '=', $credentials['email'])
             ->first();
@@ -40,35 +34,25 @@ class AuthController extends Controller
     {
         $query = Produk::query();
 
-        // Pencarian berdasarkan nama produk
         if ($request->filled('search')) {
             $query->where('name', 'ILIKE', '%' . $request->search . '%');
         }
 
-
-        // Filter berdasarkan kategori
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
         }
 
-        // Ambil data dengan pagination
-        $produks = $query->paginate(10); // 10 item per halaman
-
-        $categories = Category::all(); // Data kategori untuk dropdown
+        $produks = $query->paginate(10);
+        $categories = Category::all();
 
         return view('index', compact('produks', 'categories'));
     }
 
-
-
-
     public function showProfile()
     {
-        $user = Auth::user(); // Mengambil data pengguna yang sedang login
-
-        return view('profile', compact('user')); // Mengirimkan data pengguna ke view
+        $user = Auth::user();
+        return view('profile.profile', compact('user'));
     }
-
 
     public function logout()
     {

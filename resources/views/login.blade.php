@@ -78,8 +78,6 @@
             </form>
           </div>
         </div>
-
-        <!-- Kolom 2 -->
         <div
           class="col text-center text-white py-4"
           style="background-image: url('{{ asset('assets/Frame 98699.png') }}'); background-size: cover; background-position: center;"
@@ -87,7 +85,6 @@
       </div>
     </div>
 
-    <!-- Modal Error Password -->
     <div class="modal fade" id="passwordErrorModal" tabindex="-1" aria-labelledby="passwordErrorModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -112,7 +109,6 @@
       crossorigin="anonymous"
     ></script>
 
-    <!-- Script to show error modal -->
     <script>
       @if(session('loginError'))
         var myModal = new bootstrap.Modal(document.getElementById('passwordErrorModal'), {});

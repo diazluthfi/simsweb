@@ -12,14 +12,13 @@ class Produk extends Model
 
     protected $fillable = [
         'name',
-        'category_id', // Relasi ke tabel category
+        'category_id',
         'price_buy',
         'price_sell',
         'stok',
         'image',
     ];
 
-    // Relasi ke Category
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');

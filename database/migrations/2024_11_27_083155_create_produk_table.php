@@ -20,9 +20,9 @@
                 $table->unsignedInteger('stok');
                 $table->string('image');
                 $table->timestamps();
-                $table->foreign('category_id') // Membuat relasi foreign key
+                $table->foreign('category_id')
                     ->references('id')->on('category')
-                    ->onDelete('cascade'); // Jika kategori dihapus, produk yang terkait ikut dihapus
+                    ->onDelete('cascade');
             });
         }
 

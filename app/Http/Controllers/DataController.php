@@ -12,13 +12,12 @@ class DataController extends Controller
 {
     public function showCreate()
     {
-        $categories = Category::all(); // Ambil semua kategori untuk dropdown
+        $categories = Category::all();
         return view('produk.create', compact('categories'));
     }
 
     public function create(Request $request)
     {
-        // Validasi input
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255|unique:produk,name',
             'buyPrice' => 'required|numeric|min:0',
@@ -31,13 +30,11 @@ class DataController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Proses upload gambar
         $imagePath = null;
         if ($request->hasFile('itemImage')) {
             $imagePath = $request->file('itemImage')->store('produks', 'public');
         }
 
-        // Menyimpan produk menggunakan prepared statement
         DB::insert('INSERT INTO produk (name, category_id, price_buy, price_sell, stok, image, created_at, updated_at) 
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [
             $request->name,
@@ -50,7 +47,6 @@ class DataController extends Controller
             now(),
         ]);
 
-        // Mengarahkan kembali ke halaman produk dengan pesan sukses
         return redirect()->route('showIndex')->with('success', 'Produk berhasil ditambahkan');
     }
 
@@ -58,15 +54,13 @@ class DataController extends Controller
     {
         $produk = Produk::findOrFail($id);
         $categories = Category::all();
-
         return view('produk.edit', compact('produk', 'categories'));
     }
 
     public function update(Request $request, $id)
     {
-        // Validasi input
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:produk,name,' . $id, // Menambahkan pengecualian untuk produk yang sedang diupdate
+            'name' => 'required|string|max:255|unique:produk,name,' . $id,
             'category_id' => 'required|exists:category,id',
             'buyPrice' => 'required|numeric|min:0',
             'salePrice' => 'nullable|numeric|min:0',
@@ -79,19 +73,15 @@ class DataController extends Controller
         }
 
         $produk = Produk::findOrFail($id);
-
-        $imagePath = $produk->image; // Default ke gambar yang sudah ada
+        $imagePath = $produk->image;
         if ($request->hasFile('itemImage')) {
-            // Hapus gambar lama (opsional)
             if ($produk->image && file_exists(storage_path('app/public/' . $produk->image))) {
                 unlink(storage_path('app/public/' . $produk->image));
             }
 
-            // Simpan gambar baru
             $imagePath = $request->file('itemImage')->store('produks', 'public');
         }
 
-        // Update produk menggunakan prepared statement
         DB::update('UPDATE produk SET name = ?, category_id = ?, price_buy = ?, price_sell = ?, stok = ?, image = ?, updated_at = ? 
                 WHERE id = ?', [
             $request->name,
@@ -107,11 +97,9 @@ class DataController extends Controller
         return redirect()->route('showIndex')->with('success', 'Produk berhasil diperbarui');
     }
 
-
     public function delete($id)
     {
         DB::delete('DELETE FROM produk WHERE id = ?', [$id]);
-
         return redirect()->route('showIndex');
     }
 }

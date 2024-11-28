@@ -101,9 +101,9 @@
                     required
                     min="0"
                 />
-                @error('buyPrice')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
+                  @error('buyPrice')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
         </div>
 
