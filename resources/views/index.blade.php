@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="container-fluid">
-    <!-- Menampilkan pesan sukses jika ada -->
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
@@ -13,8 +12,6 @@
     <div class="mb-4 mt-4">
         <h2>Daftar Produk</h2>
     </div>
-
-    <!-- Tombol di atas tabel -->
     <div class="d-flex mb-3 justify-content-between">
         <div class="d-flex">
             <form action="{{ route('showIndex') }}" method="GET" class="d-flex">
@@ -108,7 +105,7 @@
                             <a href="{{ route('produk.edit', ['id' => $produk->id]) }}" type="button" style="font-size: 1.2rem; color: #0d6efd;">
                                 <i class="bi bi-pencil-fill"></i>
                             </a>
-                            <!-- Trigger Modal Delete -->
+
                             <a href="#" class="delete-btn" data-id="{{ $produk->id }}" data-nama="{{ $produk->name }}">
                                 <i class="bi bi-trash-fill" style="color: red; font-size: 1.2rem;"></i>
                             </a>
@@ -120,8 +117,6 @@
 
         <div class="mt-0 d-flex justify-content-between align-items-center">
             <span>Show {{ $produks->count() }} from {{ $produks->total() }}</span>
-        
-            <!-- Pagination -->
             <div class="d-flex align-items-center">
                 @if ($produks->onFirstPage())
                     <button class="btn" style="border: none; color: grey; font-weight: bold; cursor: not-allowed;">
@@ -158,7 +153,6 @@
     </div>
 </div>
 
-<!-- Modal for Confirming Deletion -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -183,13 +177,12 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Jika ada pesan sukses dari session
+
         @if(session('success'))
             var successMessage = '{{ session('success') }}';
-            alert(successMessage); // Atau gunakan modal atau tampilan pop-up lainnya
+            alert(successMessage); 
         @endif
 
-        // Aksi tombol hapus produk
         var deleteBtns = document.querySelectorAll('.delete-btn');
 
         deleteBtns.forEach(function (btn) {
@@ -197,14 +190,11 @@
                 var produkId = btn.getAttribute('data-id');
                 var produkName = btn.getAttribute('data-nama');
                 
-                // Update modal dengan nama produk yang akan dihapus
                 document.getElementById('namaProduk').textContent = produkName;
                 
-                // Set form action untuk penghapusan produk
                 var form = document.getElementById('deleteForm');
                 form.action = '/produk/delete/' + produkId;
                 
-                // Tampilkan modal
                 var myModal = new bootstrap.Modal(document.getElementById('deleteModal'));
                 myModal.show();
             });
