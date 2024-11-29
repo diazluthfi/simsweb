@@ -6,19 +6,23 @@
       }
     },
     "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/api/index.php"
-      },
-      {
-        "src": "/assets/(.*)",
-        "dest": "/public/assets/$1"
-      },
-      {
-        "src": "/(css|js|images|fonts)/(.*)",
-        "dest": "/public/$1/$2"
-      }
-    ],
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.php"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/public/assets/$1"
+    },
+    {
+      "src": "/css/(.*)",
+      "dest": "/public/css/$1"
+    },
+    {
+      "src": "/js/(.*)",
+      "dest": "/public/js/$1"
+    }
+  ],
     "env": {
       "APP_ENV": "production",
       "APP_DEBUG": "false",
