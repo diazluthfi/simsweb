@@ -53,8 +53,3 @@ $response = $kernel->handle(
 )->send();
 
 $kernel->terminate($request, $response);
-
-if (env('APP_ENV') === 'production') {
-    putenv('HOST=0.0.0.0');
-    putenv('PORT=' . getenv('PORT'));
-}
