@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SIMS Web</title>
     <link rel="icon" href="{{ asset('assets/Handbag.png') }}" type="image/x-icon" />
-    <link rel="stylesheet" href="{{ asset('assets/styles.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('assets/styles.css') }}" /> --}}
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -16,6 +16,116 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" defer></script>
   
+    <style>
+      #sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background-color: #f42619;
+    transition: width 0.5s ease;
+    z-index: 1000;
+}
+
+#sidebar.collapsed {
+    width: 50px;
+}
+
+#sidebarHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #f42619;
+    color: white;
+}
+
+.app-name {
+    font-size: 18px;
+    display: inline;
+}
+
+#sidebar.collapsed .app-name,
+#sidebar.collapsed #sidebarIcon {
+    display: none;
+}
+
+.nav-link {
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+#sidebar .nav-link {
+    color: white; /* Menjaga teks tetap putih */
+}
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.nav-link .text {
+    margin-left: 10px;
+    display: inline;
+}
+
+#sidebar.collapsed .nav-link .text {
+    display: none;
+}
+
+.nav-link i {
+    font-size: 20px;
+}
+
+.main-content {
+    margin-left: 250px;
+    flex-grow: 1;
+    transition: margin-left 0.5s ease;
+    overflow-x: hidden;
+}
+
+body.sidebar-collapsed .main-content {
+    margin-left: 80px;
+}
+
+#sidebarToggleBtn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.container-fluid {
+    max-width: 100vw;
+    padding: 20px;
+}
+
+.table-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.table-actions .btn {
+    margin-left: 10px;
+}
+
+    </style>
   </head>
   <body>
     <!-- Sidebar -->
