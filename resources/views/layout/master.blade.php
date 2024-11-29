@@ -14,6 +14,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
       rel="stylesheet"
     />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" defer></script>
   
   </head>
   <body>
@@ -56,35 +57,42 @@
     </div>
 
     @if ($errors->any())
-      <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="errorModalLabel">Ada Kesalahan</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-danger">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title fw-bold d-flex align-items-center" id="errorModalLabel">
+                        <i class="bi bi-exclamation-circle me-2"></i> Kesalahan Input
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" role="alert">
+                        <p class="mb-1"><strong>Harap periksa kesalahan berikut:</strong></p>
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
             </div>
-            <div class="modal-body">
-              <ul>
-                @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-                @endforeach
-              </ul>
-              <p>Silakan perbaiki kesalahan di atas sebelum melanjutkan.</p>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Perbaiki</button>
-            </div>
-          </div>
         </div>
-      </div>
     @endif
 
     <script>
-      @if ($errors->any())
-        var myModal = new bootstrap.Modal(document.getElementById('errorModal'));
-        myModal.show();
-      @endif
+        document.addEventListener('DOMContentLoaded', function () {
+            @if ($errors->any())
+                var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                errorModal.show();
+            @endif
+        });
+
+
 
       function formatPrice(input) {
         let value = input.value.replace(/\D/g, ''); 

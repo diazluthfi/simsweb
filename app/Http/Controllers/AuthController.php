@@ -30,24 +30,6 @@ class AuthController extends Controller
         }
     }
 
-    public function showIndex(Request $request)
-    {
-        $query = Produk::query();
-
-        if ($request->filled('search')) {
-            $query->where('name', 'ILIKE', '%' . $request->search . '%');
-        }
-
-        if ($request->filled('category_id')) {
-            $query->where('category_id', $request->category_id);
-        }
-
-        $produks = $query->paginate(10);
-        $categories = Category::all();
-
-        return view('index', compact('produks', 'categories'));
-    }
-
     public function showProfile()
     {
         $user = Auth::user();

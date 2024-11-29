@@ -105,19 +105,11 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-
-        <!-- Tombol Submit -->
         <div class="d-flex justify-content-end">
             <a href="{{ route('showIndex') }}" class="btn btn-outline-primary me-2">Kembali</a>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </div>
-        
     </form>
-
 </div>
-
-
-<!-- JavaScript untuk menampilkan modal otomatis jika ada error -->
-
 
 @endsection

@@ -8,12 +8,10 @@
         <h2 class="fw-bold fs-3 text-dark d-inline">Edit Produk</h2>
     </div>
     
-    <!-- Form Edit Produk -->
     <form action="{{ route('produk.update', $produk->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT') <!-- Menggunakan method PUT untuk update data -->
-
-        <!-- Baris Pertama: Kategori dan Nama Barang -->
+        @method('PUT')
+        
         <div class="row mb-3">
             <div class="col-md-4">
                 <label for="itemCategory" class="form-label">Kategori</label>
@@ -36,7 +34,7 @@
                     id="name"
                     name="name"
                     placeholder="Masukkan nama barang"
-                    value="{{ $produk->name }}"
+                  value="{{ old('name', $produk->name) }}"
                     required
                 />
                 @error('name')
@@ -45,7 +43,6 @@
             </div>
         </div>
 
-        <!-- Baris Kedua: Harga dan Stok -->
         <div class="row mb-3">
             <div class="col-md-4">
                 <label for="buyPrice" class="form-label">Harga Beli</label>
@@ -57,7 +54,7 @@
                         id="buyPrice"
                         name="buyPrice"
                         placeholder="Masukkan harga beli"
-                        value="{{ number_format($produk->price_buy, 0, ',', '.') }}"
+                        value="{{ old('buyPrice', $produk->price_buy) }}"
                         required
                         oninput="formatPrice(this); calculateSalePrice();"
                         style="border-left: none; border-color: #dbd8d8"
@@ -74,7 +71,7 @@
                     <span class="input-group-text" style="background: transparent;">Rp.</span>
                     <input
                         type="text"
-                      class="form-control @error('salePrice') is-invalid @enderror"
+                      class="form-control"
                         id="salePrice"
                         name="salePrice"
                         placeholder="Harga Jual Otomatis"
@@ -83,9 +80,7 @@
                         readonly
                         style="border-left: none; border-color: #dbd8d8"
                     />
-                    @error('buyPrice')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                    
                 </div>
             </div>
             
@@ -93,21 +88,17 @@
                 <label for="stock" class="form-label">Stok Barang</label>
                 <input
                     type="number"
-                   class="form-control @error('salePrice') is-invalid @enderror"
+                   class="form-control"
                     id="stock"
                     name="stock"
                     placeholder="Masukkan stok barang"
-                    value="{{ $produk->stok }}"
+                    value="{{ old('stock', $produk->stok) }}"
                     required
                     min="0"
                 />
-                  @error('buyPrice')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                
             </div>
         </div>
-
-        <!-- Input Gambar -->
         <div class="mb-3">
             <label for="itemImage" class="form-label">Uplod Image</label>
             <input
@@ -120,14 +111,11 @@
             <small class="text-muted">*Biarkan kosong jika tidak ingin mengubah gambar</small>
         </div>
 
-        <!-- Tombol Submit -->
-        <button type="submit" class="btn btn-primary">Update Barang</button>
+        <div class="d-flex justify-content-end">
+            <a href="{{ route('showIndex') }}" class="btn btn-outline-primary me-2">Kembali</a>
+            <button type="submit" class="btn btn-primary">Update Barang</button>
+        </div>
     </form>
 </div>
-
-
-
-<!-- JavaScript -->
-
 
 @endsection

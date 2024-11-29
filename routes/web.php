@@ -22,13 +22,12 @@ use Illuminate\Http\Request;
 Route::get('/', [AuthController::class, 'showlogin']);
 Route::post('/', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::middleware('auth')->group(function () {
 
-    Route::get('/index', [AuthController::class, 'showIndex'])->name('showIndex');
+Route::middleware('auth')->group(function () {
+    Route::get('/index', [DataController::class, 'showIndex'])->name('showIndex');
     Route::get('/profile', [AuthController::class, 'showProfile'])->name('showProfile');
 
     Route::prefix('produk')->name('produk.')->group(function () {
-
         Route::get('/create', [DataController::class, 'showCreate'])->name('showCreate');
         Route::post('/create', [DataController::class, 'create'])->name('create');
         Route::delete('/delete/{id}', [DataController::class, 'delete'])->name('delete');
